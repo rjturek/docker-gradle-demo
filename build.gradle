@@ -1,4 +1,7 @@
 apply plugin: 'java'
+apply plugin: 'docker-base'
+
+import org.gradle.api.plugins.docker.tasks.DockerInfo
 
 // In this section you declare where to find the dependencies of your project
 repositories {
@@ -10,6 +13,14 @@ dependencies {
     testCompile "junit:junit:4.11"
 }
 
-build.doFirst {
-    println "hey there!!"
+docker {
+    serverUrl 'blah'
 }
+
+task dockerInfo(type: DockerInfo) {
+    doFirst {
+        println "dumping DockerInfo"
+    }
+}
+
+build.dependsOn dockerInfo 
